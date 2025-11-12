@@ -12,6 +12,8 @@ export const livrosService = {
     },
 
     async criar(livro) {
+        console.log(livro);
+
         const response = await api.post('/livros', livro);
         return response.data;
     },

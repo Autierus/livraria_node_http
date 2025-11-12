@@ -11,6 +11,7 @@ module.exports = {
       autor: { type: DataTypes.STRING, allowNull: false },
       categoria: { type: DataTypes.STRING, allowNull: false },
       ano: { type: DataTypes.INTEGER, allowNull: false },
+      editora: { type: DataTypes.TEXT, defaultValue: '' },
     });
   },
   down: async (sequelize) => {

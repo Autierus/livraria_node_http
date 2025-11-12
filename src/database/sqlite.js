@@ -42,7 +42,8 @@ function init() {
             titulo TEXT NOT NULL,
             autor TEXT NOT NULL,
             categoria TEXT NOT NULL,
-            ano INTEGER NOT NULL
+            ano INTEGER NOT NULL,
+            editora TEXT DEFAULT ''
         )
     `);
     run(`

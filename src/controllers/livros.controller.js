@@ -20,12 +20,13 @@ class LivrosController {
     }
 
     async criarLivro(req, res, next) {
-        const { titulo, autor, categoria, ano } = req.body;
+        const { titulo, autor, categoria, ano, editora } = req.body;
         const novoLivro = await this.livrosRepository.create({
             titulo,
             autor,
             categoria,
-            ano: parseInt(ano)
+            ano: parseInt(ano),
+            editora
         });
         res.status(201).json({
             mensagem: "Livro criado com sucesso",
@@ -35,12 +36,13 @@ class LivrosController {
 
     async atualizarLivro(req, res, next) {
         const id = parseInt(req.params.id);
-        const { titulo, autor, categoria, ano } = req.body;
+        const { titulo, autor, categoria, ano, editora } = req.body;
         const livroAtualizado = await this.livrosRepository.update(id, {
             titulo,
             autor,
             categoria,
-            ano: parseInt(ano)
+            ano: parseInt(ano),
+            editora
         });
 
         res.status(200).json({

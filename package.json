@@ -10,7 +10,8 @@
     "seed": "node scripts/seed-sequelize-from-json.js",
     "migrate:up": "node scripts/migrate-up.js",
     "migrate:down": "node scripts/migrate-down.js",
-    "migrate:add-email": "node scripts/migrate-add-email.js"
+    "migrate:add-email": "node scripts/migrate-add-email.js",
+    "migrate:add-editora": "node scripts/migrate-add-editora.js"
   },
   "keywords": [],
   "author": "",
