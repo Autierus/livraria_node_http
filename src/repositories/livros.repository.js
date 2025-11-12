@@ -28,7 +28,9 @@ class LivrosRepository extends RepositoryBase {
     }
 
     async update(id, dadosAtualizados) {
-        const existente = this.findById(id);
+        const existente = await this.findById(id);
+        console.log(existente);
+
         if (!existente) {
             const error = new Error("Livro não encontrado");
             error.statusCode = 404;
