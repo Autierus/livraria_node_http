@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 🚀 Script de Inicialização Rápida - Sistema de Livraria
-# Este script facilita a inicialização do projeto completo
+# Agora com backend/ e frontend/ separados
 
 echo "=================================================="
 echo "🚀 Iniciando Sistema de Livraria"
@@ -9,8 +9,8 @@ echo "=================================================="
 echo ""
 
 # Verificar se está na raiz do projeto
-if [ ! -f "package.json" ]; then
-    echo "❌ Erro: Execute este script na raiz do projeto!"
+if [ ! -d "backend" ] || [ ! -d "frontend" ]; then
+    echo "❌ Erro: Execute este script na raiz do projeto contendo /backend e /frontend"
     exit 1
 fi
 
@@ -29,8 +29,12 @@ echo "✅ Node.js versão: $(node --version)"
 echo "✅ npm versão: $(npm --version)"
 echo ""
 
-# Passo 1: Instalar dependências do backend
+############################################
+# Passo 1 – Instalar dependências do backend
+############################################
 echo "📦 Passo 1/5: Instalando dependências do backend..."
+cd backend
+
 if [ ! -d "node_modules" ]; then
     npm install
     echo "✅ Dependências do backend instaladas!"
@@ -39,8 +43,11 @@ else
 fi
 echo ""
 
-# Passo 2: Verificar banco de dados
+############################################
+# Passo 2 – Verificar banco de dados
+############################################
 echo "🗄️  Passo 2/5: Configurando banco de dados..."
+
 if [ ! -f "src/data/livraria.sqlite" ]; then
     echo "⚠️  Banco de dados não encontrado. Executando migrações..."
     npm run migrate:up
@@ -57,35 +64,48 @@ else
 fi
 echo ""
 
-# Passo 3: Instalar dependências do frontend
+cd ..
+
+############################################
+# Passo 3 – Instalar dependências do frontend
+############################################
 echo "📦 Passo 3/5: Instalando dependências do frontend..."
 cd frontend
+
 if [ ! -d "node_modules" ]; then
     npm install
     echo "✅ Dependências do frontend instaladas!"
 else
     echo "✅ Dependências do frontend já instaladas!"
 fi
+
 cd ..
 echo ""
 
-# Passo 4: Iniciar backend
+############################################
+# Passo 4 – Iniciar backend
+############################################
 echo "🔧 Passo 4/5: Iniciando backend (porta 3333)..."
+cd backend
 npm run dev &
 BACKEND_PID=$!
+cd ..
+
 echo "✅ Backend iniciado! PID: $BACKEND_PID"
 echo ""
 
-# Aguardar backend iniciar
 echo "⏳ Aguardando backend inicializar..."
 sleep 3
 
-# Passo 5: Iniciar frontend
+############################################
+# Passo 5 – Iniciar frontend
+############################################
 echo "🎨 Passo 5/5: Iniciando frontend (porta 3000)..."
 cd frontend
 npm run dev &
 FRONTEND_PID=$!
 cd ..
+
 echo "✅ Frontend iniciado! PID: $FRONTEND_PID"
 echo ""
 
