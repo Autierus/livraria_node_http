@@ -1565,7 +1565,7 @@ livraria_node_http/
 
 ## Recursos Implementados
 
-### ✅ Funcionalidades
+### Funcionalidades
 
 - **Autenticação completa**
   - Registro de novos usuários
@@ -1589,7 +1589,7 @@ livraria_node_http/
   - Formulários modais
   - Mensagens de feedback (sucesso/erro)
 
-### ✅ Tecnologias Utilizadas
+### Tecnologias Utilizadas
 
 - **Vite** - Build tool rápida e moderna
 - **React 18** - Biblioteca JavaScript para UI
@@ -1648,5 +1648,3 @@ Neste tutorial, você aprendeu a:
 ✅ Criar componentes reutilizáveis  
 ✅ Estilizar aplicação com CSS moderno  
 ✅ Manter sessão via cookies httpOnly  
-
-O resultado é uma aplicação full-stack funcional com autenticação e gerenciamento de dados!
