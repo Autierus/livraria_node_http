@@ -7,6 +7,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
 import Livros from './pages/Livros'
+import MeusFavoritos from './pages/MeusFavoritos';
 import './App.css'
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
                                     </PrivateRoute>
                                 }
                             />
+                            <Route path="/favoritos" element={<MeusFavoritos />} />
                             <Route path="*" element={<Navigate to="/" replace />} />
                         </Routes>
                     </main>

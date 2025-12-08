@@ -1,49 +1,82 @@
-# Livraria
+# Projeto Web
 
-Este projeto é uma aplicação web simples para praticar conceitos básicos de desenvolvimento web, incluindo principalmente o protocolo HTTP, HTML, CSS e JavaScript. A aplicação simula uma livraria onde os usuários podem cadastrar, visualizar, editar e excluir livros.
+Este documento descreve as funcionalidades implementadas no projeto e apresenta instruções para execução do sistema. Veja o vídeo de explicação das funcionalidades: https://drive.google.com/file/d/1HKjCR4Q5tont4Mes709Df-r-_aQN6mNX/view?usp=sharing
 
-## Tutoriais
-jhkhkj
 
-- [Parte 2](./parte-2.md)
-- [Parte 3](./parte-3.md)
-- [Parte 4](./parte-4.md)
-- [Parte 5](./parte-5.md)
-- [Parte 6 — Configurando SQLite (sqlite3 e better-sqlite3)](./parte-6.md)
+# Funcionalidades Implementadas
 
-## Como Testar
+## **1. Nova Tabela de Reviews**
 
-Para testar os endpoints da aplicação, você pode usar ferramentas como Postman ou cURL. Abaixo estão os endpoints disponíveis:
+Foi criada a tabela **reviews** para permitir que usuários avaliem livros cadastrados no sistema.
 
-- `GET /`: Retorna a página inicial da aplicação.
+### Principais implementações:
+
+* Tabela **reviews** com os campos: id, livro_id, usuario_id, nota, comentario, criado_em. O arquivo sqlite.js está em ```backend\src\database\sqlite.js```.
+* Relação *1:N* entre **livros** e **reviews**.
+* Endpoint para cadastrar novas avaliações.
+* Cálculo da média das notas no backend.
+* Exibição no frontend de reviews e avaliação média.
+
+## **2. Tema Claro/Escuro no Front-End**
+
+Tema dark/light totalmente funcional em toda a aplicação.
+
+### Principais pontos implementados:
+
+* Criação do **ThemeContext** gerenciando o estado global do tema.
+* Persistência no **localStorage** para manter o tema escolhido ao recarregar.
+* Botão no Header para alternar entre **Claro** e **Escuro**.
+* Classes CSS condicionais aplicadas globalmente.
+* Ajustes de cores, backgrounds, bordas e fontes em páginas, cards e componentes.
+
+
+
+## **3. Sistema de Favoritos**
+
+Usuários autenticados podem favoritar e desfavoritar livros.
+
+### Implementações realizadas:
+
+* Criação da tabela **favoritos** (usuario_id, livro_id).
+* Rotas para adicionar/remover favoritos.
+* Serviço no frontend para consumir essas rotas.
+* Ícone dinâmico no card de cada livro mostrando se está favoritado.
+* Página **MeusFavoritos.jsx** com listagem de livro favoritados.
+
+
+
+#  Como Executar o Sistema
+
+## **1. Instalar dependências**
+
+Instale as dependencias no backend e no frontend
 
 ```bash
-curl http://localhost:3000/
+cd backend
+npm install
+cd ../frontend
+npm install
 ```
 
-- `GET /livros`: Retorna uma lista de todos os livros cadastrados.
+## **2. Iniciar os servidores**
+
 ```bash
-curl http://localhost:3000/api/livros
+cd backend
+npm run dev
+cd ../frontend
+npm run dev
 ```
 
-- `GET /livros/:id`: Retorna os detalhes de um livro específico pelo seu ID.
-```bash
-curl http://localhost:3000/api/livros/1
+Backend acessado em:
+
+```
+http://localhost:3333
 ```
 
-- `POST /livros`: Adiciona um novo livro. O corpo da requisição deve conter os detalhes do livro em formato JSON.
-```bash
-# Livro de informática
-curl -X POST http://localhost:3000/api/livros -H "Content-Type: application/json" -d '{"titulo": "Novo Livro", "autor": "Autor Exemplo", "ano": 2024, "categoria": "Informática"}'
+Frontend acessado em:
+
+```
+http://localhost:3000
 ```
 
-- `PUT /livros/:id`: Atualiza os detalhes de um livro existente pelo seu ID. O corpo da requisição deve conter os novos detalhes do livro em formato JSON.
-```bash
-curl -X PUT http://localhost:3000/api/livros/4 -H "Content-Type: application/json" -d '{"titulo": "Livro Atualizado", "autor": "Autor Atualizado", "ano": 2025, "categoria": "Ficção"}'
-```
-
-- `DELETE /livros/:id`: Remove um livro pelo seu ID.
-```bash
-curl -X DELETE http://localhost:3000/api/livros/4
-```
-
+---

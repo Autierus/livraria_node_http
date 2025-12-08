@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { livrosService } from '../services/livrosService';
+import { reviewsService } from '../services/reviewsService';
 import LivroCard from '../components/LivroCard';
 import LivroForm from '../components/LivroForm';
 import './Livros.css';
@@ -20,8 +21,18 @@ const Livros = () => {
         try {
             setLoading(true);
             setError('');
+            
             const data = await livrosService.listar();
-            setLivros(data);
+
+            // Carrega reviews de cada livro
+            const livrosComReviews = await Promise.all(
+                data.map(async (livro) => {
+                    const reviews = await reviewsService.listarPorLivro(livro.id);
+                    return { ...livro, reviews };
+                })
+            );
+
+            setLivros(livrosComReviews);
         } catch (err) {
             setError('Erro ao carregar livros. Tente novamente.');
             console.error(err);
@@ -53,6 +64,30 @@ const Livros = () => {
             setError('Erro ao remover livro. Tente novamente.');
             console.error(err);
         }
+    };
+
+    const handleAddReview = (livroId) => {
+        const texto = prompt("Digite sua review:");
+        if (!texto) return;
+
+        const nota = parseInt(prompt("Nota de 1 a 5:"), 10);
+        if (isNaN(nota) || nota < 1 || nota > 5) {
+            alert("Nota inválida.");
+            return;
+        }
+
+        reviewsService
+            .criar({
+                livro_id: livroId,
+                user_id: 1, // depois ligar ao usuário logado
+                nota,
+                comentario: texto
+            })
+            .then(() => {
+                showSuccess("Review adicionada com sucesso!");
+                carregarLivros();
+            })
+            .catch(() => setError("Erro ao adicionar review"));
     };
 
     const handleSubmit = async (formData) => {
@@ -123,6 +158,7 @@ const Livros = () => {
                             livro={livro}
                             onEdit={handleEdit}
                             onDelete={handleDelete}
+                            onAddReview={() => handleAddReview(livro.id)}
                         />
                     ))}
                 </div>

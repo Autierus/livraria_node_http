@@ -1,9 +1,10 @@
 .livro-card {
-  background: white;
+  background: var(--card-background);
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s ease, box-shadow 0.2s ease;
+  color: var(--text-color);
 }
 
 .livro-card:hover {
@@ -13,14 +14,14 @@
 
 .livro-card h3 {
   margin: 0 0 15px 0;
-  color: #333;
   font-size: 20px;
+  color: var(--text-color);
 }
 
 .livro-card p {
   margin: 8px 0;
-  color: #666;
   font-size: 14px;
+  color: var(--text-color);
 }
 
 .card-actions {
@@ -33,4 +34,32 @@
   flex: 1;
   font-size: 13px;
   padding: 8px 12px;
+  background-color: var(--button-background);
+  color: var(--button-color);
+  transition: all 0.3s ease;
+}
+
+.card-actions .btn:hover {
+  background-color: var(--button-hover-background);
+}
+
+/* Estilo específico para favoritos */
+.btn-warning {
+  background-color: #ffc107;
+  color: #222;
+}
+
+.btn-outline-warning {
+  background-color: transparent;
+  color: #ffc107;
+  border: 1px solid #ffc107;
+}
+
+.btn-warning:hover {
+  background-color: #e0a800;
+}
+
+.btn-outline-warning:hover {
+  background-color: #ffc107;
+  color: #222;
 }

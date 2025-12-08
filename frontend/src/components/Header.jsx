@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { useTheme } from '../contexts/ThemeContext.jsx'; // importar o hook
 import './Header.css';
 
 const Header = () => {
     const { user, logout } = useAuth();
+    const { theme, toggleTheme } = useTheme(); // acessar tema e função de alternância
     const navigate = useNavigate();
 
     const handleLogout = async () => {
@@ -24,6 +26,7 @@ const Header = () => {
                         <>
                             <Link to="/" className="nav-link">Início</Link>
                             <Link to="/livros" className="nav-link">Livros</Link>
+                            <Link to="/favoritos" className="nav-link">Meus Favoritos</Link>
                             <div className="user-info">
                                 <span>Olá, {user.username || user.email}!</span>
                                 <button onClick={handleLogout} className="btn btn-secondary">
@@ -37,6 +40,14 @@ const Header = () => {
                             <Link to="/register" className="nav-link">Registrar</Link>
                         </>
                     )}
+                    {/* Botão de alternância de tema */}
+                    <button 
+                        onClick={toggleTheme} 
+                        className="btn btn-theme"
+                        style={{ marginLeft: '1rem' }}
+                    >
+                        {theme === 'light' ? '🌙 Escuro' : '☀️ Claro'}
+                    </button>
                 </nav>
             </div>
         </header>
